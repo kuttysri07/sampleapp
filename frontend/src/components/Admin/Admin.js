@@ -42,7 +42,8 @@ const App = () => {
         const response = await axios.post(`${API_URL}/upload`, formData)
         console.log(response.data);
         fetchImages();  // Fetch the updated list of images after a new upload
-        window.location("/admin");
+        window.location.href = "/admin";
+
 
 
     }
