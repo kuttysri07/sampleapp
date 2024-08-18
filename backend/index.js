@@ -1,11 +1,12 @@
 const express = require("express");
 const app = express();
+require("dotenv").config();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const multer =require("multer");
 
 const path = require("path");
-
+const Dburl= process.env.DB_URL;
 
 const productModel = require("./Model/productModel");
 
@@ -14,7 +15,7 @@ app.use(express.json());
 app.use(express.static('public/images'))
 
 
-mongoose.connect("mongodb+srv://curljhonson07:Kuttysri07@todoapp.mrxzsi4.mongodb.net/image")
+mongoose.connect(`${Dburl}/image`)
 .then(() => console.log("MongoDB connected"))
 .catch((err) => console.log("MongoDB connection error:", err));
 
@@ -128,13 +129,14 @@ app.delete("/deleteImage/:id",async (req,res)=>{
 app.use(express.static(path.join(__dirname, "../frontend/build")));
 
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/build","index.html"));
+    res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
 });
 
 
 
 
-const Port = 8000;
+const Port = process.env.PORT || 8000;;
 app.listen(Port ,()=>{
     console.log(`server is running on port ${Port}`)
+    
 });
